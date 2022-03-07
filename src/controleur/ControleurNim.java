@@ -24,8 +24,8 @@ public class ControleurNim extends Controleur{
     }
 
     @Override
-    void traiterCoup() throws CoupInvalideException {
-        List<Integer> l=ihm.demanderCoup();
+    void traiterCoup(Joueur joueur) throws CoupInvalideException {
+        List<Integer> l=((IhmNim)ihm).demanderCoup();
         CoupNim coup = new CoupNim(l.get(0),l.get(1));
         tasJeu.gererCoup(coup);
     }
@@ -37,7 +37,7 @@ public class ControleurNim extends Controleur{
             ihm.afficherEtat(tasJeu.toString());
             ((IhmNim) ihm).afficherCoup(joueurActuel.getNom());
             try {
-                traiterCoup();
+                traiterCoup(joueurActuel);
                 break;
             }
             catch (CoupInvalideException e){

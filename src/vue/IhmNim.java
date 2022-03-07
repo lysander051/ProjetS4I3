@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class IhmNim extends Ihm{
 
-    @Override
     public List<Integer> demanderCoup() {
         scanner =new Scanner(System.in);
         String msg="\n Entrer votre coup : ";

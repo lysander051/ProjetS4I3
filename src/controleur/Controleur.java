@@ -8,7 +8,7 @@ public abstract class Controleur {
     protected final Ihm ihm;
     protected Joueur joueur1;
     protected Joueur joueur2;
-    private final Queue<Joueur> ordreDesJoueurs = new LinkedList<>();
+    protected final Queue<Joueur> ordreDesJoueurs = new LinkedList<>();
 
     public Controleur(Ihm ihm) {
         this.ihm=ihm;
@@ -55,7 +55,7 @@ public abstract class Controleur {
      * L'état de la grille sera mis à jour
      * @throws CoupInvalideException si le coup est invalide
      */
-    abstract void traiterCoup ()  throws CoupInvalideException;
+    abstract void traiterCoup (Joueur joueur)  throws CoupInvalideException;
 
     /**
      *gère le tour d'un joueur

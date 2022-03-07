@@ -5,8 +5,9 @@ import vue.*;
 
 public class Main {
     public static void main(String[] args) {
-        Ihm ihm=new IhmNim();
-        ControleurNim controleur=new ControleurNim(ihm);
+        System.out.println(Ihm.selectionJeu());
+        Ihm ihm=new IhmPuissance();
+        ControleurPuissance controleur=new ControleurPuissance(ihm);
         controleur.jouer();
     }
 }

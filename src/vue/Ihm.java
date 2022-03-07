@@ -9,6 +9,10 @@ public abstract class Ihm {
     protected final String spacing = "--------------------------------------------------------";
     protected Scanner scanner;
 
+    public static String selectionJeu (){
+        return "coucou";
+    }
+
     /**
      * Demande le nom du joueur
      * @param num correspond au numéro du joueur (joueur 1 ou 2)
@@ -40,13 +44,6 @@ public abstract class Ihm {
         System.out.println(spacing);
         System.out.println(support);
     }
-
-    /**
-     * Demande au joueur de saisir son coup pour son tour
-     * @param nom correspond au nom du joueur
-     * @return le numéro de la colonne
-     */
-    abstract public List<Integer> demanderCoup();
 
     /**
      * Affiche un message en cas de coup invalide
