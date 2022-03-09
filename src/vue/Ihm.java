@@ -7,10 +7,26 @@ import java.util.Scanner;
 
 public abstract class Ihm {
     protected final String spacing = "--------------------------------------------------------";
-    protected Scanner scanner;
+    static protected Scanner scanner;
 
-    public static String selectionJeu (){
-        return "coucou";
+    public static int selectionJeu (){
+        scanner = new Scanner(System.in);
+        int nb=0;
+        System.out.println("1 pour jeu de Nim");
+        System.out.println("2 pour jeu de puissance 4");
+        System.out.print("Votre choix:");
+        while(scanner.hasNextLine()){
+            String ligne = scanner.nextLine();
+            Scanner scLoc = new Scanner(ligne);
+            if(!ligne.contains(" ") && scLoc.hasNextInt()){
+                nb=scLoc.nextInt();
+                if (1==nb || 2==nb)
+                    break;
+            }
+            System.out.println("Erreur: le numéro doit être 1 ou 2");
+            System.out.print("Votre choix:");
+        }
+        return nb;
     }
 
     /**

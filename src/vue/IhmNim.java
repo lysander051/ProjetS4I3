@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class IhmNim extends Ihm{
-
     public List<Integer> demanderCoup() {
         scanner =new Scanner(System.in);
         String msg="\n Entrer votre coup : ";
@@ -33,6 +32,27 @@ public class IhmNim extends Ihm{
             }
         }
         return l;
+    }
+
+    public int coupMax(){
+        scanner = new Scanner(System.in);
+        int nb = -1;
+        String msg="Entrer un nombre de coup max ou 0: ";
+        System.out.print(msg);
+        while(scanner.hasNextLine()){
+            String ligne = scanner.nextLine();
+            Scanner scLoc = new Scanner(ligne);
+            if(!ligne.contains(" ") && scLoc.hasNextInt()){
+                nb=scLoc.nextInt();
+                if(nb>=1){
+                    System.out.println("--------------------------------------------------------");
+                    break;
+                }
+            }
+            System.out.println("Erreur: le tas doit être un entier positif supérieur à 1 \n ");
+            System.out.print(msg);
+        }
+        return nb;
     }
 
     public int demanderNbTas(){
