@@ -141,12 +141,12 @@ public class Grille {
     public void rotationDroite(Jeton[][] nouv){
         int[] coupGagnant=new int[2];
         int comptevictoire = 0;
-        for(int c=0;c<taille;c++){
-            for(int l=0;l<taille;l++){
+        for(int c=taille-1;c>=0;c--){
+            for(int l=taille-1;l>=0;l--){
                 if(nouv[c][l]!=null) {
 
                     try {
-                        gererCoup(taille-l
+                        gererCoup(l+1
                                 , nouv[c][l]);
 
                         if (partieTerminee() && comptevictoire == 0) {
@@ -170,12 +170,12 @@ public class Grille {
     public void rotationGauche(Jeton[][] nouv){
         int[] coupGagnant=new int[2];
         int comptevictoire = 0;
-        for(int c=taille-1;c>=0;c--){
+        for(int c=0;c<taille;c++){
             for(int l=0;l<taille;l++){
                 if(nouv[c][l]!=null) {
 
                     try {
-                        gererCoup(l+1
+                        gererCoup(taille-l
                                 , nouv[c][l]);
 
                         if (partieTerminee() && comptevictoire == 0) {
