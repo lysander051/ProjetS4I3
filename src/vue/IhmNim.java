@@ -6,10 +6,59 @@ import java.util.Scanner;
 
 public class IhmNim extends Ihm{
 
+    public int demanderNbTas(){
+        scanner = new Scanner(System.in);
+        int nb = -1;
+        String msg="Entrer un nombre de tas positif: ";
+        System.out.print(msg);
+        while(scanner.hasNextLine()){
+            String ligne = scanner.nextLine();
+            Scanner scLoc = new Scanner(ligne);
+            if(!ligne.contains(" ") && scLoc.hasNextInt()){
+                nb=scLoc.nextInt();
+                if(nb>=1){
+                    System.out.println(spacing);
+                    break;
+                }
+            }
+            System.out.println("Erreur: le tas doit être un entier positif supérieur à 1 \n ");
+            System.out.print(msg);
+        }
+        return nb;
+    }
+
+    public int demanderCoupMax(){
+        scanner = new Scanner(System.in);
+        int nb = -1;
+        String msg="Entrer un nombre de coup max ou 0: ";
+        System.out.println(spacing);
+        System.out.print(msg);
+        while(scanner.hasNextLine()){
+            String ligne = scanner.nextLine();
+            Scanner scLoc = new Scanner(ligne);
+            if(!ligne.contains(" ") && scLoc.hasNextInt()){
+                nb=scLoc.nextInt();
+                if(nb>=0){
+                    break;
+                }
+            }
+            System.out.println("Erreur: le coup max doit être un entier positif \n ");
+            System.out.print(msg);
+        }
+        return nb;
+    }
+
+    @Override
+    public void afficherTour(String nom){
+        System.out.println(nom+": à vous de jouer un coup sous la forme 'm n' " +
+                "\n où m est le tas choisi et n le nombre d'allumettes " +
+                "\n à retirer dans ce tas\n");
+    }
+
     @Override
     public List<Integer> demanderCoup() {
         scanner =new Scanner(System.in);
-        String msg="\n Entrer votre coup : ";
+        String msg="Entrer votre coup : ";
         List<Integer> l=new ArrayList<>();
         System.out.print(msg);
         while (scanner.hasNextLine()) {
@@ -26,7 +75,7 @@ public class IhmNim extends Ihm{
             }
             if(l.size()!=2){
                 l.clear();
-                System.out.println("Il faut entrer 2 entiers, rejouez");
+                System.out.println("Il faut entrer 2 entiers, rejouez\n");
                 System.out.print(msg);
             }
             else {
@@ -35,55 +84,4 @@ public class IhmNim extends Ihm{
         }
         return l;
     }
-
-    public int demanderCoupMax(){
-        scanner = new Scanner(System.in);
-        int nb = -1;
-        String msg="Entrer un nombre de coup max ou 0: ";
-        System.out.print(msg);
-        while(scanner.hasNextLine()){
-            String ligne = scanner.nextLine();
-            Scanner scLoc = new Scanner(ligne);
-            if(!ligne.contains(" ") && scLoc.hasNextInt()){
-                nb=scLoc.nextInt();
-                if(nb>=0){
-                    System.out.println("--------------------------------------------------------");
-                    break;
-                }
-            }
-            System.out.println("Erreur: le tas doit être un entier positif supérieur à 1 \n ");
-            System.out.print(msg);
-        }
-        return nb;
-    }
-
-    public int demanderNbTas(){
-        scanner = new Scanner(System.in);
-        int nb = -1;
-        String msg="Entrer un nombre de tas positif: ";
-        System.out.print(msg);
-        while(scanner.hasNextLine()){
-            String ligne = scanner.nextLine();
-            Scanner scLoc = new Scanner(ligne);
-            if(!ligne.contains(" ") && scLoc.hasNextInt()){
-                nb=scLoc.nextInt();
-                if(nb>=1){
-                    System.out.println("--------------------------------------------------------");
-                    break;
-                }
-            }
-            System.out.println("Erreur: le tas doit être un entier positif supérieur à 1 \n ");
-            System.out.print(msg);
-        }
-        return nb;
-    }
-
-    @Override
-    public void afficherTour(String nom){
-        System.out.println(nom+": à vous de jouer un coup sous la forme 'm n' " +
-                "\n où m est le tas choisi et n le nombre d'allumettes " +
-                "\n à retirer dans ce tas");
-    }
-
-
 }

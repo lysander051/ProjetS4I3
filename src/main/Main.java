@@ -6,15 +6,16 @@ import vue.*;
 public class Main {
     public static void main(String[] args) {
         int jeu=Ihm.selectionJeu();
+        Controleur controleur;
+        Ihm ihm;
         if (jeu == 1){
-            Ihm ihm=new IhmNim();
-            ControleurNim controleur=new ControleurNim(ihm);
-            controleur.jouer();
+            ihm=new IhmNim();
+            controleur=new ControleurNim(ihm);
         }
         else {
-            Ihm ihm=new IhmPuissance();
-            ControleurPuissance controleur=new ControleurPuissance(ihm);
-            controleur.jouer();
+            ihm=new IhmPuissance();
+            controleur=new ControleurPuissance(ihm);
         }
+        controleur.jouer();
     }
 }

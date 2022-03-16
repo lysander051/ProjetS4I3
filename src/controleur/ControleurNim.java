@@ -16,8 +16,19 @@ public class ControleurNim extends Controleur{
         super(ihm);
     }
 
+    private void enregistrerNbTas(){
+        int nbTas= ((IhmNim)ihm).demanderNbTas();
+        tasJeu = new Tas(nbTas);
+    }
+
     @Override
-    void initialisationPartie() {
+    public void initJeu(){
+        enregistrerNbTas();
+        enregistrementNom();
+    }
+
+    @Override
+    protected void initialisationPartie() {
         tasJeu.initialiser();
         int coupMax=((IhmNim)ihm).demanderCoupMax();
         tasJeu.setCoupMax(coupMax);
@@ -26,47 +37,39 @@ public class ControleurNim extends Controleur{
     }
 
     @Override
-    void traiterCoup(Joueur joueur) throws CoupInvalideException {
-        ihm.afficherTour(joueur.getNom());
-        List<Integer> l=((IhmNim)ihm).demanderCoup();
+    protected void traiterCoup(Joueur joueur) throws CoupInvalideException {
+        List<Integer> l=ihm.demanderCoup();
         CoupNim coup = new CoupNim(l.get(0),l.get(1));
         tasJeu.gererCoup(coup);
     }
 
    @Override
-    void affichageSupport() {
-       ihm.afficherEtat(tasJeu.toString());
+   protected void affichageDebutTour(Joueur joueur) {
+        ihm.afficherEtat(tasJeu.toString());
+        ihm.afficherTour(joueur.getNom());
    }
 
     @Override
     protected <T> Joueur gagnantPartie(T j) {
-        return null;
-    }
-
-    protected Joueur gagnantPartie() {
         joueurSuivant();
         Joueur gagnant=joueurSuivant();
         gagnant.gagnePartie();
         return gagnant;
     }
 
+   /* protected Joueur gagnantPartie() {
+        joueurSuivant();
+        Joueur gagnant=joueurSuivant();
+        gagnant.gagnePartie();
+        return gagnant;
+    }*/
 
     @Override
-    void partie() {
+    protected void partie() {
         while(!tasJeu.partieTerminee()){
             tour();
         }
-        ihm.afficherGagnant(gagnantPartie().getNom());
+        ihm.afficherGagnant(gagnantPartie(null).getNom());
     }
 
-    @Override
-   public void initJeu(){
-        enregistrerNbTas();
-        enregistrementNom();
-    }
-
-    private void enregistrerNbTas(){
-        int nbTas= ((IhmNim)ihm).demanderNbTas();
-        tasJeu = new Tas(nbTas);
-    }
 }

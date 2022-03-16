@@ -20,7 +20,7 @@ public class Grille {
      * @throws CoupInvalideException si le coup saisit est invalide
      */
     public void gererCoup(int coup, Jeton jeton) throws CoupInvalideException {
-        int[] position=new int[2];
+        //int[] position=new int[2];
         coup--;
         if(coup<0 || taille<=coup) {
             throw new CoupInvalideException("Nombre invalide");
@@ -32,10 +32,47 @@ public class Grille {
             if (grille[coup][i]==null){
                 nbJeton++;
                 grille[coup][i]=jeton;
-                position[0]=coup;
+                /*position[0]=coup;
                 position[1]=i;
-                dernierJeton=position;
+                dernierJeton=position;*/
                 break;
+            }
+        }
+    }
+
+    public void gererRotation(int sens) {
+        Jeton[][] nouv = Arrays.copyOf(grille,taille);
+        grille = new Jeton[taille][taille];
+        if(sens==0) {
+            rotationGauche(nouv);
+        }
+        else{
+            rotationDroite(nouv);
+        }
+    }
+
+    public void rotationDroite(Jeton[][] nouv){
+        for(int c=taille-1;c>=0;c--){
+            for(int l=taille-1;l>=0;l--){
+                if(nouv[c][l]!=null) {
+                    try {
+                        gererCoup(l+1
+                                , nouv[c][l]);
+                    } catch (CoupInvalideException e) {}
+                }
+            }
+        }
+    }
+
+    public void rotationGauche(Jeton[][] nouv){
+        for(int c=0;c<taille;c++){
+            for(int l=0;l<taille;l++){
+                if(nouv[c][l]!=null) {
+                    try {
+                        gererCoup(taille-l
+                                , nouv[c][l]);
+                    } catch (CoupInvalideException e) {}
+                }
             }
         }
     }
@@ -46,18 +83,19 @@ public class Grille {
      */
     public Set<Jeton> partieTerminee(){
         Set<Jeton> jetons = new HashSet<>();
-        int id = 0;
         for (int x = 0; x < taille-1; x++) {
             for (int y = 0; y < taille - 1; y++) {
                 dernierJeton[0] = x;
                 dernierJeton[1] = y;
-                for (int i = -1; i <= 1; i++) {
-                    for (int j = -1; j <= 1; j++) {
-                        int res = analyseVictoire(dernierJeton[0] + j, dernierJeton[1] + i, j, i)
-                                + analyseVictoire(dernierJeton[0] - j, dernierJeton[1] - i, -j, -i)
-                                + 1;
-                        if (4 <= res)
-                            jetons.add(grille[x][y]);
+                if(grille[x][y]!=null) {
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            int res = analyseVictoire(dernierJeton[0] + j, dernierJeton[1] + i, j, i)
+                                    + analyseVictoire(dernierJeton[0] - j, dernierJeton[1] - i, -j, -i)
+                                    + 1;
+                            if (4 <= res)
+                                jetons.add(grille[x][y]);
+                        }
                     }
                 }
             }
@@ -76,7 +114,7 @@ public class Grille {
     private int analyseVictoire(int jx, int jy, int dx, int dy){
         if ((dx==0 && dy==0) || jx < 0 || jy < 0 || taille-1 < jx || taille-1 < jy || grille[jx][jy]==null)
             return 0;
-        if (grille[dernierJeton[0]][dernierJeton[1]]!=null && grille[dernierJeton[0]][dernierJeton[1]].equals(grille[jx][jy]))
+        if (grille[dernierJeton[0]][dernierJeton[1]].equals(grille[jx][jy]))
             return 1 + analyseVictoire(jx+dx, jy+dy, dx, dy);
         return 0;
     }
@@ -110,60 +148,5 @@ public class Grille {
         }
         return affichage;
     }
-
-    public void gererRotation(int sens) {
-        Jeton[][] nouv = new Jeton[taille][taille];
-        nouv = Arrays.copyOf(grille, taille);
-        grille = new Jeton[taille][taille];
-       if(sens==0) {
-           rotationGauche(nouv);
-       }
-       else{
-           rotationDroite(nouv);
-       }
-    }
-
-    public void rotationDroite(Jeton[][] nouv){
-        for(int c=taille-1;c>=0;c--){
-            for(int l=taille-1;l>=0;l--){
-                if(nouv[c][l]!=null) {
-
-                    try {
-                        gererCoup(l+1
-                                , nouv[c][l]);
-
-
-                    } catch (CoupInvalideException e) {
-
-                    }
-                }
-            }
-
-        }
-
-    }
-
-    public void rotationGauche(Jeton[][] nouv){
-        for(int c=0;c<taille;c++){
-            for(int l=0;l<taille;l++){
-                if(nouv[c][l]!=null) {
-
-                    try {
-                        gererCoup(taille-l
-                                , nouv[c][l]);
-
-
-
-                    } catch (CoupInvalideException e) {
-
-                    }
-                }
-            }
-
-        }
-
-
-    }
-
 
 }

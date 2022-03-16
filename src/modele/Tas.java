@@ -37,7 +37,6 @@ public class Tas  {
 
     /**
      * Retourne vrai si la partie est terminée et faux sinon
-     * @return
      */
     public boolean partieTerminee() {
         return nbAllumette() == 0;
@@ -54,7 +53,6 @@ public class Tas  {
      * Retourne le nombre total d'allumettes de la partie
      */
     public int nbAllumette(){
-
         int total = 0;
         for (int nb : lesTas)
             total+=nb;
@@ -79,27 +77,16 @@ public class Tas  {
 
     /**
      * modifie l'état de la partie en fonction du coup passé en paramètre
-     * @param coup
      * @throws CoupInvalideException si le coup est invalide
      */
     public void gererCoup(CoupNim coup) throws CoupInvalideException {
         int numeroTas= coup.getNumeroTas();
         int nb = coup.getNbAllumettes();
-
-        if(nb>coupMax){
-            throw new CoupInvalideException("Le nombre maximum à retirer est de "+coupMax);
-        }
-
-        if (numeroTas >= 1 && numeroTas <= lesTas.length && nb >= 1 && nb <= nbAllumettes(numeroTas)) {
+        if (nb<=coupMax && numeroTas >= 1 && numeroTas <= lesTas.length && nb >= 1 && nb <= nbAllumettes(numeroTas)) {
             lesTas[numeroTas - 1] -= nb;
-
         } else {
-            throw new CoupInvalideException("Le coup est invalide, rejouez");
+            throw new CoupInvalideException("Le coup est invalide");
         }
-    }
-
-    public int getCoupMax(){
-        return coupMax;
     }
 
     public void setCoupMax(int coup){

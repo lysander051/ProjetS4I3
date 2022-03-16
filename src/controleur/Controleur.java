@@ -22,6 +22,8 @@ public abstract class Controleur {
         joueur2=new Joueur(ihm.demanderNom(2));
     }
 
+    protected abstract void initJeu();
+
     /**
      * Initialise la file des joueurs pour chaque début de partie, le joueur 1 en premier puis le joueur 2
      */
@@ -37,7 +39,17 @@ public abstract class Controleur {
      * Initialise une grille, crée une file pour l'ordre des joueurs,
      * affecte à chaque joueur la couleur de ses jetons et lance la partie
      */
-    abstract void initialisationPartie();
+    protected abstract void initialisationPartie();
+
+    protected abstract void affichageDebutTour(Joueur j);
+
+    /**
+     * Traite le coup saisit par le joueur
+     * Vérifie si le coup est valide et l'enregistre en appelant la méthode gererCoup de la grille
+     * L'état de la grille sera mis à jour
+     * @throws CoupInvalideException si le coup est invalide
+     */
+    protected abstract void traiterCoup (Joueur joueur)  throws CoupInvalideException;
 
     /**
      *
@@ -50,24 +62,14 @@ public abstract class Controleur {
     }
 
     /**
-     * Traite le coup saisit par le joueur
-     * Vérifie si le coup est valide et l'enregistre en appelant la méthode gererCoup de la grille
-     * L'état de la grille sera mis à jour
-     * @throws CoupInvalideException si le coup est invalide
-     */
-    abstract void traiterCoup (Joueur joueur)  throws CoupInvalideException;
-
-    abstract void affichageSupport();
-    /**
      *gère le tour d'un joueur
      * affiche l'état de la grille, le nom du joueur actuel et lui demande son coup
      * Si le coup est valide, l'état de la grille change et on change de joueur
      * Sinon, un message d'erreur est affiché et le joueur rejoue son tour jusqu'à ce que son coup soit valide
      */
-    public void tour() {
+    protected void tour() {
         Joueur joueurActuel = joueurSuivant();
-        affichageSupport();
-        //ihm.afficherEtat(tasJeu.toString());
+        affichageDebutTour(joueurActuel);
         while (true) {
             try {
                 traiterCoup(joueurActuel);
@@ -93,7 +95,7 @@ public abstract class Controleur {
      * Si la grille est pleine on affiche la nullité de la partie
      * Si la partie n'est pas terminée, on change le tour
      */
-    abstract void partie();
+    protected abstract void partie();
 
     /**
      *
@@ -105,10 +107,6 @@ public abstract class Controleur {
         if (joueur1.getNbPartiesGagnees()<joueur2.getNbPartiesGagnees())
             return joueur2.getNom();
         return joueur1.getNom();
-    }
-
-    public void initJeu(){
-        enregistrementNom();
     }
 
     /**

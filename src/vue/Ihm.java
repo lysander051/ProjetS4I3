@@ -1,12 +1,12 @@
 package vue;
 
-import modele.Jeton;
+
 
 import java.util.List;
 import java.util.Scanner;
 
 public abstract class Ihm {
-    protected final String spacing = "--------------------------------------------------------";
+    static protected final String spacing = "--------------------------------------------------------";
     static protected Scanner scanner;
 
     public static int selectionJeu (){
@@ -14,17 +14,20 @@ public abstract class Ihm {
         int nb=0;
         System.out.println("1 pour jeu de Nim");
         System.out.println("2 pour jeu de puissance 4");
-        System.out.print("Votre choix:");
+        String msg="Votre choix:";
+        System.out.print(msg);
         while(scanner.hasNextLine()){
             String ligne = scanner.nextLine();
             Scanner scLoc = new Scanner(ligne);
             if(!ligne.contains(" ") && scLoc.hasNextInt()){
                 nb=scLoc.nextInt();
-                if (1==nb || 2==nb)
+                if (1==nb || 2==nb) {
+                    System.out.println(spacing);
                     break;
+                }
             }
-            System.out.println("Erreur: le numéro doit être 1 ou 2");
-            System.out.print("Votre choix:");
+            System.out.println("Erreur: le numéro doit être 1 ou 2 \n");
+            System.out.print(msg);
         }
         return nb;
     }
@@ -45,7 +48,7 @@ public abstract class Ihm {
                 break;
             }
             else{
-                System.out.println("Erreur: le joueur "+num+" doit avoir un nom");
+                System.out.println("Erreur: le joueur "+num+" doit avoir un nom \n");
                 System.out.print(msg);
             }
         }
@@ -66,16 +69,21 @@ public abstract class Ihm {
      * @param msg correspond au message affiché au joueur
      */
     public void afficherErreurCoup(String msg){
-        System.out.println(spacing);
-        System.out.println("Erreur: "+msg+", rejouez");
+        //System.out.println(spacing);
+        System.out.println("Erreur: "+msg+", rejouez \n");
     }
+
+    public abstract void afficherTour(String joueur);
+
+    public abstract List<Integer>demanderCoup();
+
     /**
      * Affiche le nom du gagnant de la partie
      * @param nom correspond au nom du gagnant
      */
     public void afficherGagnant(String nom){
         System.out.println(spacing);
-        System.out.println("Félicitation "+nom+" ,vous avez gagné la partie");
+        System.out.println("Félicitation "+nom+" ,vous avez gagné la partie \n");
     }
 
     /**
@@ -96,7 +104,7 @@ public abstract class Ihm {
             if(valeur.equals("N") || valeur.equals("n")){
                 break;
             }
-            System.out.println("Erreur: Entrer O ou N");
+            System.out.println("Erreur: Entrer O ou N \n");
             System.out.print(msg);
         }
         return rep;
@@ -112,7 +120,7 @@ public abstract class Ihm {
      */
     public void afficherGagnantJeu(String nom1,String nom2,int partiegagne1,int partiegagne2,String gagnant){
         System.out.println(spacing);
-        String s="Nombre de victoire : \n "+ nom1+" : "+partiegagne1+"\n "+ nom2+" : "+partiegagne2+"\n";
+        String s="Nombre de victoire : \n "+ nom1+" : "+partiegagne1+"\n "+ nom2+" : "+partiegagne2+"\n \n";
         if(gagnant.equals("ex-aequo")){
             s+="Vous êtes à "+gagnant;
         }
@@ -122,11 +130,5 @@ public abstract class Ihm {
         System.out.println(s);
     }
 
-    public void afficherTour(String joueur) {
-        System.out.println(joueur+ ": à vous de jouer");
-    }
-
-    public abstract List<Integer>demanderCoup();
-
-    }
+}
 
