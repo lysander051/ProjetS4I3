@@ -7,9 +7,7 @@ import modele.Joueur;
 import vue.Ihm;
 import vue.IhmPuissance;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ControleurPuissance extends Controleur{
     private Grille grille;
@@ -72,14 +70,20 @@ public class ControleurPuissance extends Controleur{
 
     @Override
     protected void partie(){
+        Set<Jeton> lesJetonsGagnants=new HashSet<>();
         do{
             tour();
+            lesJetonsGagnants=grille.partieTerminee();
 
         }
-        while(!grille.partieTerminee() && !grille.grilleRemplie());
+        while(lesJetonsGagnants!=null && !grille.grilleRemplie());
         ihm.afficherEtat(grille.toString());
-        if (!grille.grilleRemplie())
-            ihm.afficherGagnant(gagnantPartie().getNom());
+
+        if (lesJetonsGagnants.size()==1)
+        {
+            Jeton[] jetonGagnant=(Jeton [])lesJetonsGagnants.toArray();
+            ihm.afficherGagnant(gagnantPartie(jetonGagnant[0])).getNom());
+        }
         else
             ((IhmPuissance)ihm).afficherPartieNulle();
     }

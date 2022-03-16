@@ -1,6 +1,8 @@
 package modele;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Grille {
     private final int taille = 7;
@@ -42,7 +44,7 @@ public class Grille {
      * Teste les alignements des jetons dans les directions possibles afin de savoir s'il y en a 4 d'alignés ou non
      * @return true s'il y en a 4 alignés false sinon
      */
-    public boolean partieTerminee(){
+    /*public boolean partieTerminee(){
         for (int i=-1; i<=1; i++) {
             for (int j=-1; j<=1; j++) {
                 int res = analyseVictoire(dernierJeton[0]+j, dernierJeton[1]+i, j, i)
@@ -53,6 +55,10 @@ public class Grille {
             }
         }
         return false;
+    }*/
+
+    public Set<Jeton> partieTerminee(){
+        return new HashSet<>();
     }
 
     /**
@@ -111,31 +117,6 @@ public class Grille {
        else{
            rotationDroite(nouv);
        }
-       /* for (int c = taille-1; c >=0; c--) {
-            for (int l = 0; l < taille; l++) {
-                if (nouv[c][l] != null) {
-
-                    try {
-                        int coup = l+1 ;
-                        if (sens == 1) { /* droite
-                            coup = taille - l;
-                        }
-                        System.out.printf("coup= "+ coup );
-
-                        gererCoup(coup
-                                , nouv[c][l]);
-                        if (partieTerminee() && comptevictoire == 0) {
-                            coupGagnant = Arrays.copyOf(dernierJeton, 2);
-                        }
-
-                    } catch (CoupInvalideException e) {
-
-                    }
-                }
-            }
-
-        }*/
-
     }
 
     public void rotationDroite(Jeton[][] nouv){
@@ -168,8 +149,6 @@ public class Grille {
     }
 
     public void rotationGauche(Jeton[][] nouv){
-        int[] coupGagnant=new int[2];
-        int comptevictoire = 0;
         for(int c=0;c<taille;c++){
             for(int l=0;l<taille;l++){
                 if(nouv[c][l]!=null) {
@@ -178,10 +157,7 @@ public class Grille {
                         gererCoup(taille-l
                                 , nouv[c][l]);
 
-                        if (partieTerminee() && comptevictoire == 0) {
-                            coupGagnant = Arrays.copyOf(dernierJeton, 2);
-                            comptevictoire=1;
-                        }
+
 
                     } catch (CoupInvalideException e) {
 
@@ -190,9 +166,7 @@ public class Grille {
             }
 
         }
-        if(comptevictoire>0){
-            dernierJeton=coupGagnant;
-        }
+
 
     }
 
