@@ -38,6 +38,18 @@ public class ControleurNim extends Controleur{
        ihm.afficherEtat(tasJeu.toString());
    }
 
+    @Override
+    protected <T> Joueur gagnantPartie(T j) {
+        return null;
+    }
+
+    protected Joueur gagnantPartie() {
+        joueurSuivant();
+        Joueur gagnant=joueurSuivant();
+        gagnant.gagnePartie();
+        return gagnant;
+    }
+
 
     @Override
     void partie() {

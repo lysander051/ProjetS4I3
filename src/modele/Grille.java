@@ -44,29 +44,25 @@ public class Grille {
      * Teste les alignements des jetons dans les directions possibles afin de savoir s'il y en a 4 d'alignés ou non
      * @return true s'il y en a 4 alignés false sinon
      */
-    /*public boolean partieTerminee(){
-        for (int i=-1; i<=1; i++) {
-            for (int j=-1; j<=1; j++) {
-                int res = analyseVictoire(dernierJeton[0]+j, dernierJeton[1]+i, j, i)
-                        + analyseVictoire(dernierJeton[0]-j, dernierJeton[1]-i, -j, -i)
-                        + 1;
-                if (4 <= res)
-                    return true;
+    public Set<Jeton> partieTerminee(){
+        Set<Jeton> jetons = new HashSet<>();
+        int id = 0;
+        for (int x = 0; x < taille-1; x++) {
+            for (int y = 0; y < taille - 1; y++) {
+                dernierJeton[0] = x;
+                dernierJeton[1] = y;
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        int res = analyseVictoire(dernierJeton[0] + j, dernierJeton[1] + i, j, i)
+                                + analyseVictoire(dernierJeton[0] - j, dernierJeton[1] - i, -j, -i)
+                                + 1;
+                        if (4 <= res)
+                            jetons.add(grille[j][i]);
+                    }
+                }
             }
         }
-        return false;
-    }*/
-
-    public Set<Jeton> partieTerminee(){
-        return new HashSet<>();
-    }
-
-    /**
-     *
-     * @return si la grille est remplie ou non
-     */
-    public boolean grilleRemplie(){
-       return taille*taille <= nbJeton;
+        return jetons;
     }
 
     /**
@@ -83,6 +79,14 @@ public class Grille {
         if (grille[dernierJeton[0]][dernierJeton[1]].equals(grille[jx][jy]))
             return 1 + analyseVictoire(jx+dx, jy+dy, dx, dy);
         return 0;
+    }
+
+    /**
+     *
+     * @return si la grille est remplie ou non
+     */
+    public boolean grilleRemplie(){
+        return taille*taille <= nbJeton;
     }
 
     @Override
