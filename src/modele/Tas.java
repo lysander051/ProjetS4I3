@@ -15,6 +15,7 @@ public class Tas  {
      * représente l'état courant de la partie
      */
     private int[] lesTas;
+    private int coupMax;
 
     /**
      * crée un ensemble de nbTas tas avec 0 allumettes dans chaque tas
@@ -85,6 +86,10 @@ public class Tas  {
         int numeroTas= coup.getNumeroTas();
         int nb = coup.getNbAllumettes();
 
+        if(nb>coupMax){
+            throw new CoupInvalideException("Le nombre maximum à retirer est de "+coupMax);
+        }
+
         if (numeroTas >= 1 && numeroTas <= lesTas.length && nb >= 1 && nb <= nbAllumettes(numeroTas)) {
             lesTas[numeroTas - 1] -= nb;
 
@@ -92,4 +97,18 @@ public class Tas  {
             throw new CoupInvalideException("Le coup est invalide, rejouez");
         }
     }
+
+    public int getCoupMax(){
+        return coupMax;
+    }
+
+    public void setCoupMax(int coup){
+        if(coup==0){
+            coupMax=nbAllumette();
+        }
+        else {
+            coupMax = coup;
+        }
+    }
+
 }

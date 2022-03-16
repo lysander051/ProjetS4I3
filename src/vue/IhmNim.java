@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class IhmNim extends Ihm{
+
+    @Override
     public List<Integer> demanderCoup() {
         scanner =new Scanner(System.in);
         String msg="\n Entrer votre coup : ";
@@ -34,7 +36,7 @@ public class IhmNim extends Ihm{
         return l;
     }
 
-    public int coupMax(){
+    public int demanderCoupMax(){
         scanner = new Scanner(System.in);
         int nb = -1;
         String msg="Entrer un nombre de coup max ou 0: ";
@@ -44,7 +46,7 @@ public class IhmNim extends Ihm{
             Scanner scLoc = new Scanner(ligne);
             if(!ligne.contains(" ") && scLoc.hasNextInt()){
                 nb=scLoc.nextInt();
-                if(nb>=1){
+                if(nb>=0){
                     System.out.println("--------------------------------------------------------");
                     break;
                 }
@@ -76,9 +78,12 @@ public class IhmNim extends Ihm{
         return nb;
     }
 
-    public void afficherCoup(String nom){
+    @Override
+    public void afficherTour(String nom){
         System.out.println(nom+": à vous de jouer un coup sous la forme 'm n' " +
                 "\n où m est le tas choisi et n le nombre d'allumettes " +
                 "\n à retirer dans ce tas");
     }
+
+
 }

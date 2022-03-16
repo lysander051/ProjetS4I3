@@ -1,9 +1,11 @@
 package modele;
 
+import java.util.Arrays;
+
 public class Grille {
     private final int taille = 7;
     private int nbJeton;
-    private final Jeton[][] grille = new Jeton[taille][taille];
+    private  Jeton[][] grille = new Jeton[taille][taille];
     private int[] dernierJeton = new int[2];
 
     public Grille(){ }
@@ -97,6 +99,101 @@ public class Grille {
             affichage+="\n";
         }
         return affichage;
+    }
+
+    public void gererRotation(int sens) {
+        Jeton[][] nouv = new Jeton[taille][taille];
+        nouv = Arrays.copyOf(grille, taille);
+        grille = new Jeton[taille][taille];
+       if(sens==0) {
+           rotationGauche(nouv);
+       }
+       else{
+           rotationDroite(nouv);
+       }
+       /* for (int c = taille-1; c >=0; c--) {
+            for (int l = 0; l < taille; l++) {
+                if (nouv[c][l] != null) {
+
+                    try {
+                        int coup = l+1 ;
+                        if (sens == 1) { /* droite
+                            coup = taille - l;
+                        }
+                        System.out.printf("coup= "+ coup );
+
+                        gererCoup(coup
+                                , nouv[c][l]);
+                        if (partieTerminee() && comptevictoire == 0) {
+                            coupGagnant = Arrays.copyOf(dernierJeton, 2);
+                        }
+
+                    } catch (CoupInvalideException e) {
+
+                    }
+                }
+            }
+
+        }*/
+
+    }
+
+    public void rotationDroite(Jeton[][] nouv){
+        int[] coupGagnant=new int[2];
+        int comptevictoire = 0;
+        for(int c=0;c<taille;c++){
+            for(int l=0;l<taille;l++){
+                if(nouv[c][l]!=null) {
+
+                    try {
+                        gererCoup(taille-l
+                                , nouv[c][l]);
+
+                        if (partieTerminee() && comptevictoire == 0) {
+                            coupGagnant = Arrays.copyOf(dernierJeton, 2);
+                            comptevictoire=1;
+                        }
+
+                    } catch (CoupInvalideException e) {
+
+                    }
+                }
+            }
+
+        }
+        if(comptevictoire>0){
+            dernierJeton=coupGagnant;
+        }
+
+    }
+
+    public void rotationGauche(Jeton[][] nouv){
+        int[] coupGagnant=new int[2];
+        int comptevictoire = 0;
+        for(int c=taille-1;c>=0;c--){
+            for(int l=0;l<taille;l++){
+                if(nouv[c][l]!=null) {
+
+                    try {
+                        gererCoup(l+1
+                                , nouv[c][l]);
+
+                        if (partieTerminee() && comptevictoire == 0) {
+                            coupGagnant = Arrays.copyOf(dernierJeton, 2);
+                            comptevictoire=1;
+                        }
+
+                    } catch (CoupInvalideException e) {
+
+                    }
+                }
+            }
+
+        }
+        if(comptevictoire>0){
+            dernierJeton=coupGagnant;
+        }
+
     }
 
 

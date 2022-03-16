@@ -121,4 +121,12 @@ public abstract class Ihm {
         }
         System.out.println(s);
     }
-}
+
+    public void afficherTour(String joueur) {
+        System.out.println(joueur+ ": à vous de jouer");
+    }
+
+    public abstract List<Integer>demanderCoup();
+
+    }
+

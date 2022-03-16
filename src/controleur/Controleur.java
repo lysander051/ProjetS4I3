@@ -57,13 +57,27 @@ public abstract class Controleur {
      */
     abstract void traiterCoup (Joueur joueur)  throws CoupInvalideException;
 
+    abstract void affichageSupport();
     /**
      *gère le tour d'un joueur
      * affiche l'état de la grille, le nom du joueur actuel et lui demande son coup
      * Si le coup est valide, l'état de la grille change et on change de joueur
      * Sinon, un message d'erreur est affiché et le joueur rejoue son tour jusqu'à ce que son coup soit valide
      */
-    abstract void tour();
+    public void tour() {
+        Joueur joueurActuel = joueurSuivant();
+        affichageSupport();
+        //ihm.afficherEtat(tasJeu.toString());
+        while (true) {
+            try {
+                traiterCoup(joueurActuel);
+                break;
+            }
+            catch (CoupInvalideException e){
+                ihm.afficherErreurCoup(e.getMessage());
+            }
+        }
+    }
 
     /**
      * retrouve le gagnant de la partie
@@ -98,11 +112,27 @@ public abstract class Controleur {
         return joueur1.getNom();
     }
 
+    public void initJeu(){
+        enregistrementNom();
+    }
+
     /**
      *  jouer le jeu puissance 4 jusqu'à avoir le gagnant du jeu
      * Enregistre les noms de des joueurs
      * lance une partie tant qu'ils voudront jouer
      * A la fin du jeu ,la méthode afficherGagnantJeu affiche le nom du grand gagnant
      */
-    abstract void jouer();
+    public void jouer(){
+        initJeu();
+        do{
+            initialisationPartie();
+        }
+        while(ihm.demanderRejouer());
+        ihm.afficherGagnantJeu(
+                joueur1.getNom(),
+                joueur2.getNom(),
+                joueur1.getNbPartiesGagnees(),
+                joueur2.getNbPartiesGagnees(),
+                gagnantJeu());
+    }
 }

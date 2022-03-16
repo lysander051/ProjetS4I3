@@ -19,32 +19,25 @@ public class ControleurNim extends Controleur{
     @Override
     void initialisationPartie() {
         tasJeu.initialiser();
+        int coupMax=((IhmNim)ihm).demanderCoupMax();
+        tasJeu.setCoupMax(coupMax);
         initialisationJoueur();
         partie();
     }
 
     @Override
     void traiterCoup(Joueur joueur) throws CoupInvalideException {
+        ihm.afficherTour(joueur.getNom());
         List<Integer> l=((IhmNim)ihm).demanderCoup();
         CoupNim coup = new CoupNim(l.get(0),l.get(1));
         tasJeu.gererCoup(coup);
     }
 
-    @Override
-    void tour() {
-        Joueur joueurActuel = joueurSuivant();
-        while (true) {
-            ihm.afficherEtat(tasJeu.toString());
-            ((IhmNim) ihm).afficherCoup(joueurActuel.getNom());
-            try {
-                traiterCoup(joueurActuel);
-                break;
-            }
-            catch (CoupInvalideException e){
-                ihm.afficherErreurCoup(e.getMessage());
-            }
-        }
-    }
+   @Override
+    void affichageSupport() {
+       ihm.afficherEtat(tasJeu.toString());
+   }
+
 
     @Override
     void partie() {
@@ -55,19 +48,9 @@ public class ControleurNim extends Controleur{
     }
 
     @Override
-    public void jouer(){
+   public void initJeu(){
         enregistrerNbTas();
         enregistrementNom();
-        do{
-            initialisationPartie();
-        }
-        while(ihm.demanderRejouer());
-        ihm.afficherGagnantJeu(
-                joueur1.getNom(),
-                joueur2.getNom(),
-                joueur1.getNbPartiesGagnees(),
-                joueur2.getNbPartiesGagnees(),
-                gagnantJeu());
     }
 
     private void enregistrerNbTas(){
