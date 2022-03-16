@@ -70,6 +70,17 @@ public class ControleurPuissance extends Controleur{
         ihm.afficherEtat(grille.toString());
     }
 
+
+    @Override
+    protected <Jeton> Joueur gagnantPartie(Jeton j) {
+        for (Joueur joueur : jetonDuJoueur.keySet()  ){
+            if (j.equals(jetonDuJoueur.get(joueur))){
+                return joueur;
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void partie(){
         do{
