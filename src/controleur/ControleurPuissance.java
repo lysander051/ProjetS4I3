@@ -87,13 +87,13 @@ public class ControleurPuissance extends Controleur{
             lesJetonsGagnants=grille.partieTerminee();
 
         }
-        while(lesJetonsGagnants!=null && !grille.grilleRemplie());
+        while(lesJetonsGagnants.isEmpty() && !grille.grilleRemplie());
         ihm.afficherEtat(grille.toString());
 
         if (lesJetonsGagnants.size()==1)
         {
-            Jeton[] jetonGagnant=(Jeton [])lesJetonsGagnants.toArray();
-            ihm.afficherGagnant(gagnantPartie(jetonGagnant[0])).getNom());
+            Object[] jetonGagnant=lesJetonsGagnants.toArray();
+            ihm.afficherGagnant(gagnantPartie((Jeton)jetonGagnant[0]).getNom());
         }
         else
             ((IhmPuissance)ihm).afficherPartieNulle();

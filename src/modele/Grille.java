@@ -57,7 +57,7 @@ public class Grille {
                                 + analyseVictoire(dernierJeton[0] - j, dernierJeton[1] - i, -j, -i)
                                 + 1;
                         if (4 <= res)
-                            jetons.add(grille[j][i]);
+                            jetons.add(grille[x][y]);
                     }
                 }
             }
@@ -76,7 +76,7 @@ public class Grille {
     private int analyseVictoire(int jx, int jy, int dx, int dy){
         if ((dx==0 && dy==0) || jx < 0 || jy < 0 || taille-1 < jx || taille-1 < jy || grille[jx][jy]==null)
             return 0;
-        if (grille[dernierJeton[0]][dernierJeton[1]].equals(grille[jx][jy]))
+        if (grille[dernierJeton[0]][dernierJeton[1]]!=null && grille[dernierJeton[0]][dernierJeton[1]].equals(grille[jx][jy]))
             return 1 + analyseVictoire(jx+dx, jy+dy, dx, dy);
         return 0;
     }
@@ -124,8 +124,6 @@ public class Grille {
     }
 
     public void rotationDroite(Jeton[][] nouv){
-        int[] coupGagnant=new int[2];
-        int comptevictoire = 0;
         for(int c=taille-1;c>=0;c--){
             for(int l=taille-1;l>=0;l--){
                 if(nouv[c][l]!=null) {
@@ -134,10 +132,6 @@ public class Grille {
                         gererCoup(l+1
                                 , nouv[c][l]);
 
-                        if (partieTerminee() && comptevictoire == 0) {
-                            coupGagnant = Arrays.copyOf(dernierJeton, 2);
-                            comptevictoire=1;
-                        }
 
                     } catch (CoupInvalideException e) {
 
@@ -145,9 +139,6 @@ public class Grille {
                 }
             }
 
-        }
-        if(comptevictoire>0){
-            dernierJeton=coupGagnant;
         }
 
     }
