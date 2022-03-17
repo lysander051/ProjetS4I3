@@ -50,7 +50,7 @@ public class ControleurNim extends Controleur{
    }
 
     @Override
-    protected <T> Joueur gagnantPartie(T j) {
+    protected <T> Joueur gagnantPartie(T ... j) {
         joueurSuivant();
         Joueur gagnant=joueurSuivant();
         gagnant.gagnePartie();
@@ -69,7 +69,7 @@ public class ControleurNim extends Controleur{
         while(!tasJeu.partieTerminee()){
             tour();
         }
-        ihm.afficherGagnant(gagnantPartie(null).getNom());
+        ihm.afficherGagnant(gagnantPartie().getNom());
     }
 
 }

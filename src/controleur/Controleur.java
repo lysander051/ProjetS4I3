@@ -87,7 +87,7 @@ public abstract class Controleur {
      * Appelle gagnePartie() de la classe Joueur pour incrémenter son nombre de victoires
      * @return le gagnant de la partie
      */
-    protected abstract <T> Joueur gagnantPartie(T j);
+    protected abstract <T> Joueur gagnantPartie(T ... j);
 
     /**
      * Teste si la partie est finie ou non

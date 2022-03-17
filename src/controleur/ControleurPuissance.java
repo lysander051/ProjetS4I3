@@ -90,7 +90,7 @@ public class ControleurPuissance extends Controleur{
     }
 
     @Override
-    protected <Jeton> Joueur gagnantPartie(Jeton j) {
+    protected <Jeton> Joueur gagnantPartie(Jeton ... j) {
         for (Joueur joueur : jetonDuJoueur.keySet()  ){
             if (j.equals(jetonDuJoueur.get(joueur))){
                 return joueur;
