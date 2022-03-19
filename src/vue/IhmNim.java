@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 public class IhmNim extends Ihm{
 
+    /**
+     * On demande aux joueurs le nombre de tas qu'ils souhaitent pour leur prtie
+     * @return le nombre de tas saisi
+     */
     public int demanderNbTas(){
         scanner = new Scanner(System.in);
         int nb = -1;
@@ -27,6 +31,10 @@ public class IhmNim extends Ihm{
         return nb;
     }
 
+    /**
+     * Demande aux joueurs le nombre d'allumettes maximum qu'ils peuvent retirés sur leur partie
+     * @return
+     */
     public int demanderCoupMax(){
         scanner = new Scanner(System.in);
         int nb = -1;
@@ -48,6 +56,10 @@ public class IhmNim extends Ihm{
         return nb;
     }
 
+    /**
+     * On redéfinit la méthode afficherTour pour le jeu de Nim
+     * @param nom correspond au nom du joueur courant
+     */
     @Override
     public void afficherTour(String nom){
         System.out.println(nom+": à vous de jouer un coup sous la forme 'm n' " +
@@ -55,6 +67,10 @@ public class IhmNim extends Ihm{
                 "\n à retirer dans ce tas\n");
     }
 
+    /**
+     * On redéfinit la méthode demanderCoup pour le jeu de Nim
+     * @return le coup saisi par le joueur
+     */
     @Override
     public List<Integer> demanderCoup() {
         scanner =new Scanner(System.in);

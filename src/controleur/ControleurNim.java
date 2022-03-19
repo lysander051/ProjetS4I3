@@ -16,17 +16,26 @@ public class ControleurNim extends Controleur{
         super(ihm);
     }
 
+    /**
+     * On redéfinit la méthode enregistrementNbTas pour le jeu de Nim qu'on a mis en abstract dans la classe Controleur
+     */
     private void enregistrerNbTas(){
         int nbTas= ((IhmNim)ihm).demanderNbTas();
         tasJeu = new Tas(nbTas);
     }
 
+    /**
+     * On redéfinit la méthode initJeu pour le jeu de Nim
+     */
     @Override
     public void initJeu(){
         enregistrerNbTas();
         enregistrementNom();
     }
 
+    /**
+     * On redéfinit la méthode initialisationPartie pour le jeu de Nim
+     */
     @Override
     protected void initialisationPartie() {
         tasJeu.initialiser();
@@ -36,6 +45,11 @@ public class ControleurNim extends Controleur{
         partie();
     }
 
+    /**
+     * On redéfinit la méthode traiterCoup pour le jeu de Nim
+     * @param joueur est le joueur courant
+     * @throws CoupInvalideException si le coup saisi est incorrect
+     */
     @Override
     protected void traiterCoup(Joueur joueur) throws CoupInvalideException {
         List<Integer> l=ihm.demanderCoup();
@@ -43,12 +57,22 @@ public class ControleurNim extends Controleur{
         tasJeu.gererCoup(coup);
     }
 
+    /**
+     * On redéfinit la méthode affichageDebutTour pour le jeu de Nim
+     * @param joueur est le joueur courant
+     */
    @Override
    protected void affichageDebutTour(Joueur joueur) {
         ihm.afficherEtat(tasJeu.toString());
         ihm.afficherTour(joueur.getNom());
    }
 
+    /**
+     * On redéfinit la méthode gagnantPartie pour le jeu de Nim
+     * @param j correspond aux type Joueur
+     * @param <T> utilisé pour avec des joueurs
+     * @return le gagnant de la partie
+     */
     @Override
     protected <T> Joueur gagnantPartie(T ... j) {
         joueurSuivant();
@@ -64,6 +88,9 @@ public class ControleurNim extends Controleur{
         return gagnant;
     }*/
 
+    /**
+     * On redéfinit la méthode partie pour le jeu de Nim
+     */
     @Override
     protected void partie() {
         while(!tasJeu.partieTerminee()){

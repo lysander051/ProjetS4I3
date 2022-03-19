@@ -40,6 +40,10 @@ public class Grille {
         }
     }
 
+    /**
+     * On crée une nouvelle grille identique a la première en ensuite on appelle les méthodes servant a faire tourner la grille
+     * @param sens correspond au sens de rotation
+     */
     public void gererRotation(int sens) {
         Jeton[][] nouv = Arrays.copyOf(grille,taille);
         grille = new Jeton[taille][taille];
@@ -51,6 +55,10 @@ public class Grille {
         }
     }
 
+    /**
+     * On crée une nouvelle grille après la rotation vers la droite de la grille initiale
+     * @param nouv correspond a la nouvelle grille
+     */
     public void rotationDroite(Jeton[][] nouv){
         for(int c=taille-1;c>=0;c--){
             for(int l=taille-1;l>=0;l--){
@@ -64,6 +72,10 @@ public class Grille {
         }
     }
 
+    /**
+     * On crée une nouvelle grille après la rotation vers la gauche de la grille initiale
+     * @param nouv correspond a la nouvelle grille
+     */
     public void rotationGauche(Jeton[][] nouv){
         for(int c=0;c<taille;c++){
             for(int l=0;l<taille;l++){

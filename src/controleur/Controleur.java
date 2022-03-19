@@ -41,6 +41,10 @@ public abstract class Controleur {
      */
     protected abstract void initialisationPartie();
 
+    /**
+     * Affiche l'état du jeu au moment de l'appel de la méthode sur les jeux spécifiques
+     * @param j correspond au joueur courant
+     */
     protected abstract void affichageDebutTour(Joueur j);
 
     /**

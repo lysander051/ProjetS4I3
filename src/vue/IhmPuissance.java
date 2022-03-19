@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 public class IhmPuissance extends Ihm{
 
+    /**
+     * Demande aux joueurs s'ils souhaitent ajouter des contraintes sur leur partie
+     * @return la réponse des joueurs: o pour oui n sinon
+     */
     public boolean demanderAjoutContrainte(){
         scanner =new Scanner(System.in);
         boolean rep=false;
@@ -27,6 +31,10 @@ public class IhmPuissance extends Ihm{
         return rep;
     }
 
+    /**
+     * Demande au joueur courant s'il souahite placer un jeton ou faire tourner la grille
+     * @return le choix du joueur: 0 pour mettre un jeton 1 pour tourner la grille
+     */
     public int choixMouvement() {
         scanner = new Scanner(System.in);
         int nb = -1;
@@ -48,6 +56,10 @@ public class IhmPuissance extends Ihm{
         return nb;
     }
 
+    /**
+     * Si le joueur demande à faire tourner la grille, on lui demande dans quel sens il veut la rotation
+     * @return la réponse joueur: 0 pour la rotation vers la gauche, 1 pour la droite
+     */
     public int sensRotation() {
         scanner = new Scanner(System.in);
         int nb = -1;
@@ -68,10 +80,18 @@ public class IhmPuissance extends Ihm{
         return nb;
     }
 
+    /**
+     * Affiche un message indiquant au joueur courant que son tour est arrivé
+     * @param joueur est le joueur courant
+     */
     public void afficherTour(String joueur) {
         System.out.println(joueur+ ": à vous de jouer\n");
     }
 
+    /**
+     * Demande au joueur de saisir un coup pour son tour
+     * @return le coup saisi par le joueur
+     */
     public List<Integer> demanderCoup(){
         scanner = new Scanner(System.in);
         List<Integer> l=new ArrayList<>();
@@ -95,6 +115,9 @@ public class IhmPuissance extends Ihm{
         return l;
     }
 
+    /**
+     * Affiche un message si la partie se fini sur une égalité entre les joueurs
+     */
     public void afficherPartieNulle(){
         System.out.println(spacing);
         System.out.println("La partie est nulle");

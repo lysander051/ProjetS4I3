@@ -18,11 +18,17 @@ public class ControleurPuissance extends Controleur{
         super(ihm);
     }
 
+    /**
+     * On redéfinit la méthode initJeu pour le puissance 4
+     */
     @Override
     protected  void initJeu(){
         enregistrementNom();
     }
 
+    /**
+     * On redéfinit la méthode initialisationPartie pour le puissance 4
+     */
     @Override
     protected void initialisationPartie(){
         grille=new Grille();
@@ -40,12 +46,21 @@ public class ControleurPuissance extends Controleur{
         partie();
     }
 
+    /**
+     * On redéfinit la méthode affichageDebutTour pour le puissance 4
+     * @param joueur est le joueur courant
+     */
     @Override
     protected void affichageDebutTour(Joueur joueur) {
         ihm.afficherEtat(grille.toString());
         ihm.afficherTour(jetonDuJoueur.get(joueur).toString()+" "+joueur.getNom());
     }
 
+    /**
+     * On redéfinit la méthode traiterCoup pour le puissance 4
+     * @param joueur est le joueur qui vient de jouer
+     * @throws CoupInvalideException si le coup est invalide
+     */
     @Override
     protected void traiterCoup (Joueur joueur)  throws CoupInvalideException {
         if(nbRotation.get(joueur)>=0){
@@ -59,6 +74,11 @@ public class ControleurPuissance extends Controleur{
             grille.gererCoup(coup.get(0),jetonDuJoueur.get(joueur));
     }
 
+    /**
+     * On appelle cette méthode si le joueur souhaite faire pivoter la grille dans le sens de rotation qu'il souhaite
+     * @param joueur est le joueur qui va faire tourner la grille
+     * @throws CoupInvalideException si la saisie du joueur est incorrect
+     */
     private void traiterCoupavecRotation (Joueur joueur)  throws CoupInvalideException {
         if(nbRotation.get(joueur)<=0){
             throw new CoupInvalideException("Vous ne pouvez plus faire une rotation");
@@ -71,6 +91,9 @@ public class ControleurPuissance extends Controleur{
         }
     }
 
+    /**
+     * On redéfinit la méthode partie pour le puissance 4
+     */
     @Override
     protected void partie(){
         Set<Jeton> lesJetonsGagnants;
@@ -89,6 +112,12 @@ public class ControleurPuissance extends Controleur{
             ((IhmPuissance)ihm).afficherPartieNulle();
     }
 
+    /**
+     * Teste si le jeton du joueur passé en paramètre a permis de gagner la partie ou non
+     * @param j correspond au jeton du joueur
+     * @param <Jeton> correspond a un type Jeton
+     * @return le joueur qui a gagné ou null si la partie n'est pas fini ou n'a pas de gagnant
+     */
     @Override
     protected <Jeton> Joueur gagnantPartie(Jeton ... j) {
         for (Joueur joueur : jetonDuJoueur.keySet()  ){

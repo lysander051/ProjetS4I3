@@ -9,6 +9,10 @@ public abstract class Ihm {
     static protected final String spacing = "--------------------------------------------------------";
     static protected Scanner scanner;
 
+    /**
+     * Affiche aux joueurs un message leur indiquant qu'ils peuvent choisir le jeu qu'ils souhaitent
+     * @return le numéro du jeu choisi: 1 pour le jeu de Nim, 0 pour le puissance 4
+     */
     public static int selectionJeu (){
         scanner = new Scanner(System.in);
         int nb=0;
