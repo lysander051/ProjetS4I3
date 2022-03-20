@@ -1,7 +1,6 @@
 package vue;
 
 
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,13 +10,13 @@ public abstract class Ihm {
 
     /**
      * Affiche aux joueurs un message leur indiquant qu'ils peuvent choisir le jeu qu'ils souhaitent
-     * @return le numéro du jeu choisi: 1 pour le jeu de Nim, 0 pour le puissance 4
+     * @return le numéro du jeu choisi: 1 pour le jeu de Nim, 2 pour le puissance 4
      */
     public static int selectionJeu (){
         scanner = new Scanner(System.in);
         int nb=0;
-        System.out.println("1 pour jeu de Nim");
-        System.out.println("2 pour jeu de puissance 4");
+        System.out.println("1 pour jouer au jeu de Nim");
+        System.out.println("2 pour jouer au jeu de puissance 4");
         String msg="Votre choix:";
         System.out.print(msg);
         while(scanner.hasNextLine()){
@@ -76,9 +75,15 @@ public abstract class Ihm {
         //System.out.println(spacing);
         System.out.println("Erreur: "+msg+", rejouez \n");
     }
-
+    /**
+     * Affiche le format pour montrer le tour à un joueur
+     * @param joueur le nom du joueur
+     */
     public abstract void afficherTour(String joueur);
 
+    /**
+     * Demande le coup à un joueur
+     */
     public abstract List<Integer>demanderCoup();
 
     /**

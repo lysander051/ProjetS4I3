@@ -28,6 +28,8 @@ public class ControleurPuissance extends Controleur{
 
     /**
      * On redéfinit la méthode initialisationPartie pour le puissance 4
+     * on associe à un joueur un couleur de jeton
+     * on demande si on veut jouer le jeu avec une contrainte ou non
      */
     @Override
     protected void initialisationPartie(){
@@ -77,9 +79,9 @@ public class ControleurPuissance extends Controleur{
     /**
      * On appelle cette méthode si le joueur souhaite faire pivoter la grille dans le sens de rotation qu'il souhaite
      * @param joueur est le joueur qui va faire tourner la grille
-     * @throws CoupInvalideException si la saisie du joueur est incorrect
+     * @throws CoupInvalideException si le nombre de rotation du joueur est epuisé
      */
-    private void traiterCoupavecRotation (Joueur joueur)  throws CoupInvalideException {
+    private void traiterCoupavecRotation (Joueur joueur) throws CoupInvalideException {
         if(nbRotation.get(joueur)<=0){
             throw new CoupInvalideException("Vous ne pouvez plus faire une rotation");
         }
@@ -118,10 +120,23 @@ public class ControleurPuissance extends Controleur{
      * @param <Jeton> correspond a un type Jeton
      * @return le joueur qui a gagné ou null si la partie n'est pas fini ou n'a pas de gagnant
      */
-    @Override
+   /* @Override
     protected <Jeton> Joueur gagnantPartie(Jeton ... j) {
         for (Joueur joueur : jetonDuJoueur.keySet()  ){
             if (j.equals(jetonDuJoueur.get(joueur))){
+                return joueur;
+            }
+        }
+        return null;
+    }*/
+    /**
+     * @param j jeton gagnant
+     * @return le joueur qui a le jeton passé en paramètre
+     */
+    private Joueur gagnantPartie(Jeton j) {
+        for (Joueur joueur : jetonDuJoueur.keySet()  ){
+            if (j.equals(jetonDuJoueur.get(joueur))){
+                joueur.gagnePartie();
                 return joueur;
             }
         }

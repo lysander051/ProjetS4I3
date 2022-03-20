@@ -91,7 +91,7 @@ public class Tas  {
 
     /**
      * On définit la possibilité au joueur de mettre un nombre d'allumettes maximum a retiré
-     * @param coup
+     * @param coup le nombre maximum souhaité
      */
     public void setCoupMax(int coup){
         if(coup==0){

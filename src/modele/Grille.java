@@ -20,7 +20,6 @@ public class Grille {
      * @throws CoupInvalideException si le coup saisit est invalide
      */
     public void gererCoup(int coup, Jeton jeton) throws CoupInvalideException {
-        //int[] position=new int[2];
         coup--;
         if(coup<0 || taille<=coup) {
             throw new CoupInvalideException("Nombre invalide");
@@ -32,19 +31,17 @@ public class Grille {
             if (grille[coup][i]==null){
                 nbJeton++;
                 grille[coup][i]=jeton;
-                /*position[0]=coup;
-                position[1]=i;
-                dernierJeton=position;*/
                 break;
             }
         }
     }
 
     /**
-     * On crée une nouvelle grille identique a la première en ensuite on appelle les méthodes servant a faire tourner la grille
+     * On crée une nouvelle grille identique a la première et en ensuite on appelle les méthodes servant a faire tourner la grille
      * @param sens correspond au sens de rotation
+     * @throws CoupInvalideException car utilise la methode gererCoup
      */
-    public void gererRotation(int sens) {
+    public void gererRotation(int sens) throws CoupInvalideException {
         Jeton[][] nouv = Arrays.copyOf(grille,taille);
         grille = new Jeton[taille][taille];
         if(sens==0) {
@@ -57,16 +54,14 @@ public class Grille {
 
     /**
      * On crée une nouvelle grille après la rotation vers la droite de la grille initiale
-     * @param nouv correspond a la nouvelle grille
+     * @param nouv correspond a la copie de la grille
      */
-    public void rotationDroite(Jeton[][] nouv){
+    public void rotationDroite(Jeton[][] nouv) throws CoupInvalideException {
         for(int c=taille-1;c>=0;c--){
             for(int l=taille-1;l>=0;l--){
                 if(nouv[c][l]!=null) {
-                    try {
                         gererCoup(l+1
                                 , nouv[c][l]);
-                    } catch (CoupInvalideException e) {}
                 }
             }
         }
@@ -74,16 +69,14 @@ public class Grille {
 
     /**
      * On crée une nouvelle grille après la rotation vers la gauche de la grille initiale
-     * @param nouv correspond a la nouvelle grille
+     * @param nouv correspond a la copie de la grille
      */
-    public void rotationGauche(Jeton[][] nouv){
+    public void rotationGauche(Jeton[][] nouv) throws CoupInvalideException {
         for(int c=0;c<taille;c++){
             for(int l=0;l<taille;l++){
                 if(nouv[c][l]!=null) {
-                    try {
                         gererCoup(taille-l
                                 , nouv[c][l]);
-                    } catch (CoupInvalideException e) {}
                 }
             }
         }
@@ -91,7 +84,7 @@ public class Grille {
 
     /**
      * Teste les alignements des jetons dans les directions possibles afin de savoir s'il y en a 4 d'alignés ou non
-     * @return true s'il y en a 4 alignés false sinon
+     * @return un ensemble de jetons gagnants
      */
     public Set<Jeton> partieTerminee(){
         Set<Jeton> jetons = new HashSet<>();

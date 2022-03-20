@@ -6,9 +6,12 @@ import java.util.Scanner;
 
 public class IhmPuissance extends Ihm{
 
+    public IhmPuissance(){
+        super();
+    }
     /**
      * Demande aux joueurs s'ils souhaitent ajouter des contraintes sur leur partie
-     * @return la réponse des joueurs: o pour oui n sinon
+     * @return true si ils veulent false sinon
      */
     public boolean demanderAjoutContrainte(){
         scanner =new Scanner(System.in);
@@ -32,13 +35,14 @@ public class IhmPuissance extends Ihm{
     }
 
     /**
-     * Demande au joueur courant s'il souahite placer un jeton ou faire tourner la grille
+     * Demande au joueur courant s'il souhaite placer un jeton ou faire tourner la grille
      * @return le choix du joueur: 0 pour mettre un jeton 1 pour tourner la grille
      */
     public int choixMouvement() {
         scanner = new Scanner(System.in);
         int nb = -1;
-        String msg = "Entrer \n 0 pour glisser \n 1 pour faire une rotation: ";
+        System.out.println("Entrer \n 0 pour glisser \n 1 pour faire une rotation");
+        String msg ="Votre choix :" ;
         System.out.print(msg);
         while (scanner.hasNextLine()) {
             String ligne = scanner.nextLine();
@@ -50,7 +54,7 @@ public class IhmPuissance extends Ihm{
                     break;
                 }
             }
-            System.out.println("Erreur: 0 ou 1 \n ");
+            System.out.println("Erreur: Entrer 0 ou 1 \n ");
             System.out.print(msg);
         }
         return nb;
@@ -63,7 +67,8 @@ public class IhmPuissance extends Ihm{
     public int sensRotation() {
         scanner = new Scanner(System.in);
         int nb = -1;
-        String msg = "Entrer \n 0 pour tourner à gauche \n 1 pour tourner à droite: ";
+        System.out.println("Entrer \n 0 pour tourner à gauche \n 1 pour tourner à droite ");
+        String msg = "Votre choix : ";
         System.out.print(msg);
         while (scanner.hasNextLine()) {
             String ligne = scanner.nextLine();
@@ -74,7 +79,7 @@ public class IhmPuissance extends Ihm{
                     break;
                 }
             }
-            System.out.println("Erreur: 0 pour la droite ou 1 pour la gauche \n ");
+            System.out.println("Erreur: Entrer 0 ou 1 \n ");
             System.out.print(msg);
         }
         return nb;
@@ -84,14 +89,16 @@ public class IhmPuissance extends Ihm{
      * Affiche un message indiquant au joueur courant que son tour est arrivé
      * @param joueur est le joueur courant
      */
+    @Override
     public void afficherTour(String joueur) {
         System.out.println(joueur+ ": à vous de jouer\n");
     }
 
     /**
      * Demande au joueur de saisir un coup pour son tour
-     * @return le coup saisi par le joueur
+     * @return le coup saisi par le joueur : le numéro de la colonne où il veut placer son jeton
      */
+    @Override
     public List<Integer> demanderCoup(){
         scanner = new Scanner(System.in);
         List<Integer> l=new ArrayList<>();
@@ -108,8 +115,8 @@ public class IhmPuissance extends Ihm{
                 break;
             }
             System.out.println("Erreur: le numéro de grille doit être un entier entre 1 et 7 \n");
-           /* System.out.println(joueur);
-            System.out.print(msg);*/
+           /* System.out.println(joueur);*/
+            System.out.print(msg);
         }
         l.add(nb);
         return l;

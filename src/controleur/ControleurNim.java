@@ -6,7 +6,6 @@ import modele.Joueur;
 import modele.Tas;
 import vue.Ihm;
 import vue.IhmNim;
-
 import java.util.List;
 
 public class ControleurNim extends Controleur{
@@ -17,7 +16,7 @@ public class ControleurNim extends Controleur{
     }
 
     /**
-     * On redéfinit la méthode enregistrementNbTas pour le jeu de Nim qu'on a mis en abstract dans la classe Controleur
+     * On enregistre le nombre de tas souhaité pour jouer le jeu de Nim
      */
     private void enregistrerNbTas(){
         int nbTas= ((IhmNim)ihm).demanderNbTas();
@@ -26,16 +25,19 @@ public class ControleurNim extends Controleur{
 
     /**
      * On redéfinit la méthode initJeu pour le jeu de Nim
+     * on enregistre le nombre de tas et les noms des joueurs
      */
     @Override
-    public void initJeu(){
+    protected void initJeu(){
         enregistrerNbTas();
         enregistrementNom();
     }
 
     /**
      * On redéfinit la méthode initialisationPartie pour le jeu de Nim
-     */
+     * on définit un coup max qui est le nombre d'allumettes maximum à retirer ou 0 si on ne veut pas de nombre d'allumettes
+
+     * */
     @Override
     protected void initialisationPartie() {
         tasJeu.initialiser();
@@ -73,20 +75,23 @@ public class ControleurNim extends Controleur{
      * @param <T> utilisé pour avec des joueurs
      * @return le gagnant de la partie
      */
-    @Override
+    /*@Override
     protected <T> Joueur gagnantPartie(T ... j) {
         joueurSuivant();
         Joueur gagnant=joueurSuivant();
         gagnant.gagnePartie();
         return gagnant;
-    }
+    }*/
 
-   /* protected Joueur gagnantPartie() {
+    /**
+     * @return le gagnant de la partie
+     */
+    private Joueur gagnantPartie() {
         joueurSuivant();
         Joueur gagnant=joueurSuivant();
         gagnant.gagnePartie();
         return gagnant;
-    }*/
+    }
 
     /**
      * On redéfinit la méthode partie pour le jeu de Nim

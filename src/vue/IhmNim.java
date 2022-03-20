@@ -6,8 +6,12 @@ import java.util.Scanner;
 
 public class IhmNim extends Ihm{
 
+    public IhmNim(){
+        super();
+    }
+
     /**
-     * On demande aux joueurs le nombre de tas qu'ils souhaitent pour leur prtie
+     * On demande aux joueurs le nombre de tas qu'ils souhaitent pour leur partie
      * @return le nombre de tas saisi
      */
     public int demanderNbTas(){
@@ -33,7 +37,7 @@ public class IhmNim extends Ihm{
 
     /**
      * Demande aux joueurs le nombre d'allumettes maximum qu'ils peuvent retirés sur leur partie
-     * @return
+     * @return le coup max
      */
     public int demanderCoupMax(){
         scanner = new Scanner(System.in);
@@ -69,7 +73,7 @@ public class IhmNim extends Ihm{
 
     /**
      * On redéfinit la méthode demanderCoup pour le jeu de Nim
-     * @return le coup saisi par le joueur
+     * @return le coup saisi par le joueur le numéro du tas et le nombre d'allumettes à retirer
      */
     @Override
     public List<Integer> demanderCoup() {
