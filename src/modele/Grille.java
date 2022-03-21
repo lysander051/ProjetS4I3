@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Grille {
+public class Grille extends Plateau{
     private final int taille = 7;
     private int nbJeton;
     private  Jeton[][] grille = new Jeton[taille][taille];
@@ -15,12 +15,13 @@ public class Grille {
     /**
      * Teste si le coup souhaité par le joueur est réalisable et s'il est bien compris entre 1 et 7
      * si oui, on le coup est enregistré dans dernierJeton
-     * @param coup correspond au coup saisit par le joueur
-     * @param jeton correspond au jeton du joueur
+     * @param leCoup correspond au coup saisit par le joueur
      * @throws CoupInvalideException si le coup saisit est invalide
      */
-    public void gererCoup(int coup, Jeton jeton) throws CoupInvalideException {
-        coup--;
+    @Override
+    public void gererCoup(Coup leCoup) throws CoupInvalideException {
+        CoupPuissance coupPuissance=(CoupPuissance) leCoup;
+       int coup=coupPuissance.getColonne();
         if(coup<0 || taille<=coup) {
             throw new CoupInvalideException("Nombre invalide");
         }
@@ -30,7 +31,7 @@ public class Grille {
             }
             if (grille[coup][i]==null){
                 nbJeton++;
-                grille[coup][i]=jeton;
+                grille[coup][i]=coupPuissance.getJeton();
                 break;
             }
         }
@@ -60,8 +61,9 @@ public class Grille {
         for(int c=taille-1;c>=0;c--){
             for(int l=taille-1;l>=0;l--){
                 if(nouv[c][l]!=null) {
-                        gererCoup(l+1
-                                , nouv[c][l]);
+                    Coup coup=new CoupPuissance(l+1
+                            , nouv[c][l]);
+                        gererCoup(coup);
                 }
             }
         }
@@ -75,8 +77,8 @@ public class Grille {
         for(int c=0;c<taille;c++){
             for(int l=0;l<taille;l++){
                 if(nouv[c][l]!=null) {
-                        gererCoup(taille-l
-                                , nouv[c][l]);
+                    Coup coup=new CoupPuissance(taille-l, nouv[c][l]);
+                        gererCoup(coup);
                 }
             }
         }
@@ -86,6 +88,7 @@ public class Grille {
      * Teste les alignements des jetons dans les directions possibles afin de savoir s'il y en a 4 d'alignés ou non
      * @return un ensemble de jetons gagnants
      */
+
     public Set<Jeton> partieTerminee(){
         Set<Jeton> jetons = new HashSet<>();
         for (int x = 0; x < taille-1; x++) {

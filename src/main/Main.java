@@ -17,5 +17,12 @@ public class Main {
             controleur=new ControleurPuissance(ihm);
         }
         controleur.jouer();
+
+
+        boolean a=true;
+        Boolean.valueOf(a);
+
     }
+
+
 }

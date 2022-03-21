@@ -4,13 +4,14 @@ import modele.CoupInvalideException;
 import modele.Grille;
 import modele.Jeton;
 import modele.Joueur;
+import modele.CoupPuissance;
+import modele.Coup;
 import vue.Ihm;
 import vue.IhmPuissance;
 
 import java.util.*;
 
 public class ControleurPuissance extends Controleur{
-    private Grille grille;
     private final Map<Joueur, Jeton> jetonDuJoueur=new HashMap<>();
     private final Map<Joueur,Integer> nbRotation=new HashMap<>();
 
@@ -33,7 +34,7 @@ public class ControleurPuissance extends Controleur{
      */
     @Override
     protected void initialisationPartie(){
-        grille=new Grille();
+        plateau =new Grille();
         initialisationJoueur();
         String ROUGE="\u001B[31m●\u001B[0m";
         String JAUNE="\u001B[33m●\u001B[0m";
@@ -54,7 +55,7 @@ public class ControleurPuissance extends Controleur{
      */
     @Override
     protected void affichageDebutTour(Joueur joueur) {
-        ihm.afficherEtat(grille.toString());
+        ihm.afficherEtat(plateau.toString());
         ihm.afficherTour(jetonDuJoueur.get(joueur).toString()+" "+joueur.getNom());
     }
 
@@ -73,7 +74,8 @@ public class ControleurPuissance extends Controleur{
             }
         }
         List<Integer> coup=(ihm.demanderCoup());
-            grille.gererCoup(coup.get(0),jetonDuJoueur.get(joueur));
+        Coup c=new CoupPuissance(coup.get(0),jetonDuJoueur.get(joueur));
+            plateau.gererCoup(c);
     }
 
     /**
@@ -89,7 +91,7 @@ public class ControleurPuissance extends Controleur{
             int nbRot=nbRotation.get(joueur);
             nbRotation.put(joueur,--nbRot);
             int sens=((IhmPuissance)ihm).sensRotation();
-            grille.gererRotation(sens);
+            ((Grille)plateau).gererRotation(sens);
         }
     }
 
@@ -101,10 +103,10 @@ public class ControleurPuissance extends Controleur{
         Set<Jeton> lesJetonsGagnants;
         do{
             tour();
-            lesJetonsGagnants=grille.partieTerminee();
+            lesJetonsGagnants= ((Grille)plateau).partieTerminee();
         }
-        while(lesJetonsGagnants.isEmpty() && !grille.grilleRemplie());
-        ihm.afficherEtat(grille.toString());
+        while(lesJetonsGagnants.isEmpty() && !((Grille)plateau).grilleRemplie());
+        ihm.afficherEtat(plateau.toString());
         if (lesJetonsGagnants.size()==1)
         {
             Object[] jetonGagnant=lesJetonsGagnants.toArray();
@@ -114,21 +116,6 @@ public class ControleurPuissance extends Controleur{
             ((IhmPuissance)ihm).afficherPartieNulle();
     }
 
-    /**
-     * Teste si le jeton du joueur passé en paramètre a permis de gagner la partie ou non
-     * @param j correspond au jeton du joueur
-     * @param <Jeton> correspond a un type Jeton
-     * @return le joueur qui a gagné ou null si la partie n'est pas fini ou n'a pas de gagnant
-     */
-   /* @Override
-    protected <Jeton> Joueur gagnantPartie(Jeton ... j) {
-        for (Joueur joueur : jetonDuJoueur.keySet()  ){
-            if (j.equals(jetonDuJoueur.get(joueur))){
-                return joueur;
-            }
-        }
-        return null;
-    }*/
     /**
      * @param j jeton gagnant
      * @return le joueur qui a le jeton passé en paramètre
