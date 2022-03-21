@@ -36,6 +36,33 @@ public abstract class Ihm {
     }
 
     /**
+     * On demande au joueur s'il souhaite jouer contre l'ordinateur ou contre un autre joueur
+     * @return le choix du joueur: 1 contre l'ordinateur 2 contre un autre joueur
+     */
+    public static int ordiOuJoueur() {
+        scanner = new Scanner(System.in);
+        int nb = 0;
+        System.out.println("1 Pour jouer contre l'ordinateur");
+        System.out.println("2 Pour jouer avec un autre joueur");
+        String message = "Votre choix:";
+        System.out.print(message);
+        while(scanner.hasNextLine()){
+            String ligne = scanner.nextLine();
+            Scanner sc = new Scanner(ligne);
+            if (!ligne.contains(" ") && sc.hasNextLine()){
+                nb = sc.nextInt();
+                if (nb == 1 || nb == 2){
+                    System.out.println(spacing);
+                    break;
+                }
+            }
+            System.out.println("Erreur: le numéro doit être 1 ou 2 \n");
+            System.out.println(message);
+        }
+        return nb;
+    }
+
+    /**
      * Demande le nom du joueur
      * @param num correspond au numéro du joueur (joueur 1 ou 2)
      * @return le nom du joueur
