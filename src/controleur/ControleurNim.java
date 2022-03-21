@@ -9,7 +9,6 @@ import vue.IhmNim;
 import java.util.List;
 
 public class ControleurNim extends Controleur{
-    private Tas tasJeu;
 
     public ControleurNim(Ihm ihm) {
         super(ihm);
@@ -20,7 +19,7 @@ public class ControleurNim extends Controleur{
      */
     private void enregistrerNbTas(){
         int nbTas= ((IhmNim)ihm).demanderNbTas();
-        tasJeu = new Tas(nbTas);
+        plateau = new Tas(nbTas);
     }
 
     /**
@@ -40,9 +39,9 @@ public class ControleurNim extends Controleur{
      * */
     @Override
     protected void initialisationPartie() {
-        tasJeu.initialiser();
+        ((Tas)plateau).initialiser();
         int coupMax=((IhmNim)ihm).demanderCoupMax();
-        tasJeu.setCoupMax(coupMax);
+        ((Tas)plateau).setCoupMax(coupMax);
         initialisationJoueur();
         partie();
     }
@@ -56,7 +55,7 @@ public class ControleurNim extends Controleur{
     protected void traiterCoup(Joueur joueur) throws CoupInvalideException {
         List<Integer> l=ihm.demanderCoup();
         CoupNim coup = new CoupNim(l.get(0),l.get(1));
-        tasJeu.gererCoup(coup);
+        plateau.gererCoup(coup);
     }
 
     /**
@@ -65,7 +64,7 @@ public class ControleurNim extends Controleur{
      */
    @Override
    protected void affichageDebutTour(Joueur joueur) {
-        ihm.afficherEtat(tasJeu.toString());
+        ihm.afficherEtat(plateau.toString());
         ihm.afficherTour(joueur.getNom());
    }
 
@@ -98,7 +97,7 @@ public class ControleurNim extends Controleur{
      */
     @Override
     protected void partie() {
-        while(!tasJeu.partieTerminee()){
+        while(!((Tas)plateau).partieTerminee()){
             tour();
         }
         ihm.afficherGagnant(gagnantPartie().getNom());

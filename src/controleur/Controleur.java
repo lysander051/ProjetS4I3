@@ -9,6 +9,7 @@ public abstract class Controleur {
     protected Joueur joueur1;
     protected Joueur joueur2;
     protected final Queue<Joueur> ordreDesJoueurs = new LinkedList<>();
+    protected Plateau plateau;
 
     public Controleur(Ihm ihm) {
         this.ihm=ihm;

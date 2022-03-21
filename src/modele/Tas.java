@@ -1,5 +1,7 @@
 package modele;
 
+import java.lang.Boolean;
+
 
 /**
  * <p>La classe Tas représente l'état courant de la partie
@@ -9,7 +11,7 @@ package modele;
  *
  * @author Kahlem
  */
-public class Tas  {
+public class Tas  extends Plateau{
 
     /**
      * représente l'état courant de la partie
@@ -37,9 +39,14 @@ public class Tas  {
 
     /**
      * Retourne vrai si la partie est terminée et faux sinon
+     * @return
      */
+
     public boolean partieTerminee() {
         return nbAllumette() == 0;
+
+
+
     }
 
     /**
@@ -79,9 +86,11 @@ public class Tas  {
      * modifie l'état de la partie en fonction du coup passé en paramètre
      * @throws CoupInvalideException si le coup est invalide
      */
-    public void gererCoup(CoupNim coup) throws CoupInvalideException {
-        int numeroTas= coup.getNumeroTas();
-        int nb = coup.getNbAllumettes();
+    @Override
+    public void gererCoup(Coup coup) throws CoupInvalideException {
+        CoupNim c=(CoupNim)coup;
+        int numeroTas= c.getNumeroTas();
+        int nb = c.getNbAllumettes();
         if (nb<=coupMax && numeroTas >= 1 && numeroTas <= lesTas.length && nb >= 1 && nb <= nbAllumettes(numeroTas)) {
             lesTas[numeroTas - 1] -= nb;
         } else {

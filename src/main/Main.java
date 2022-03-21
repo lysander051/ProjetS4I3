@@ -32,5 +32,12 @@ public class Main {
             }
         }
         controleur.jouer();
+
+
+        boolean a=true;
+        Boolean.valueOf(a);
+
     }
+
+
 }
