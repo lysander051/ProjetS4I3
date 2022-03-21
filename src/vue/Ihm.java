@@ -43,7 +43,7 @@ public abstract class Ihm {
     public String demanderNom(int num){
         scanner = new Scanner(System.in);
         String nom="";
-        String msg="Entrer le nom du joueur "+num+":";
+        String msg="Entrer le nom du joueur "+num+": ";
         System.out.print(msg);
         while(scanner.hasNextLine()){
             nom= scanner.nextLine();

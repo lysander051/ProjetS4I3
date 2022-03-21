@@ -38,24 +38,25 @@ public class IhmPuissance extends Ihm{
      * Demande au joueur courant s'il souhaite placer un jeton ou faire tourner la grille
      * @return le choix du joueur: 0 pour mettre un jeton 1 pour tourner la grille
      */
-    public int choixMouvement() {
+    public int choixMouvement(int movement) {
         scanner = new Scanner(System.in);
         int nb = -1;
-        System.out.println("Entrer \n 0 pour glisser \n 1 pour faire une rotation");
-        String msg ="Votre choix :" ;
-        System.out.print(msg);
-        while (scanner.hasNextLine()) {
-            String ligne = scanner.nextLine();
-            Scanner scLoc = new Scanner(ligne);
-            if (!ligne.contains(" ") && scLoc.hasNextInt()) {
-                nb = scLoc.nextInt();
-                if (nb == 0 || nb == 1) {
-                    System.out.println(spacing);
-                    break;
-                }
-            }
-            System.out.println("Erreur: Entrer 0 ou 1 \n ");
+        if (0 < movement) {
+            System.out.println("Il vous reste " + movement + ": \n 0 pas de rotation \n 1 faire une rotation");
+            String msg = "Votre choix :";
             System.out.print(msg);
+            while (scanner.hasNextLine()) {
+                String ligne = scanner.nextLine();
+                Scanner scLoc = new Scanner(ligne);
+                if (!ligne.contains(" ") && scLoc.hasNextInt()) {
+                    nb = scLoc.nextInt();
+                    if (nb == 0 || nb == 1) {
+                        break;
+                    }
+                }
+                System.out.println("Erreur: Entrer 0 ou 1 \n ");
+                System.out.print(msg);
+            }
         }
         return nb;
     }

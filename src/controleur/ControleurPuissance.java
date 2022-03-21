@@ -66,7 +66,7 @@ public class ControleurPuissance extends Controleur{
     @Override
     protected void traiterCoup (Joueur joueur)  throws CoupInvalideException {
         if(nbRotation.get(joueur)>=0){
-            int choix=((IhmPuissance)ihm).choixMouvement();
+            int choix=((IhmPuissance)ihm).choixMouvement(nbRotation.get(joueur));
             if(choix==1/*avec*/){
                 traiterCoupavecRotation(joueur);
                 return;
