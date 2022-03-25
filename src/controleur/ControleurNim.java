@@ -27,7 +27,7 @@ public class ControleurNim extends Controleur{
     protected void initJeu(){
         enregistrerNbTas();
         if(ihm.ajoutIA())
-            oLeRobot = new Robot("oLeRobot");
+            oLeRobot = new RobotNim();
         enregistrementNom();
     }
 

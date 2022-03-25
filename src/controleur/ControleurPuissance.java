@@ -20,7 +20,7 @@ public class ControleurPuissance extends Controleur{
     @Override
     protected void initJeu(){
         if(ihm.ajoutIA())
-            oLeRobot = new Robot("oLeRobot");
+            oLeRobot = new RobotPuissance();
         enregistrementNom();
     }
 

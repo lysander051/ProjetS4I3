@@ -38,7 +38,10 @@ public abstract class Controleur {
             ordreDesJoueurs.poll();
         }
         ordreDesJoueurs.add(joueur1);
-        ordreDesJoueurs.add(joueur2);
+        if (oLeRobot == null)
+            ordreDesJoueurs.add(joueur2);
+        else
+            ordreDesJoueurs.add(oLeRobot);
     }
 
     /**
