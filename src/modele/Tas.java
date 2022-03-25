@@ -44,9 +44,6 @@ public class Tas  extends Plateau{
 
     public boolean partieTerminee() {
         return nbAllumette() == 0;
-
-
-
     }
 
     /**

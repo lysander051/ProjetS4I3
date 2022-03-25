@@ -8,6 +8,7 @@ public abstract class Controleur {
     protected final Ihm ihm;
     protected Joueur joueur1;
     protected Joueur joueur2;
+    protected Robot oLeRobot;
     protected final Queue<Joueur> ordreDesJoueurs = new LinkedList<>();
     protected Plateau plateau;
 
@@ -20,7 +21,8 @@ public abstract class Controleur {
      */
     protected void enregistrementNom(){
         joueur1=new Joueur(ihm.demanderNom(1));
-        joueur2=new Joueur(ihm.demanderNom(2));
+        if (oLeRobot == null)
+            joueur2=new Joueur(ihm.demanderNom(2));
     }
 
     /**
@@ -77,7 +79,8 @@ public abstract class Controleur {
      */
     protected void tour() {
         Joueur joueurActuel = joueurSuivant();
-        affichageDebutTour(joueurActuel);
+        if (oLeRobot==null)
+            affichageDebutTour(joueurActuel);
         while (true) {
             try {
                 traiterCoup(joueurActuel);

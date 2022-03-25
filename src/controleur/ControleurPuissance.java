@@ -1,11 +1,6 @@
 package controleur;
 
-import modele.CoupInvalideException;
-import modele.Grille;
-import modele.Jeton;
-import modele.Joueur;
-import modele.CoupPuissance;
-import modele.Coup;
+import modele.*;
 import vue.Ihm;
 import vue.IhmPuissance;
 
@@ -23,7 +18,9 @@ public class ControleurPuissance extends Controleur{
      * On redéfinit la méthode initJeu pour le puissance 4
      */
     @Override
-    protected  void initJeu(){
+    protected void initJeu(){
+        if(ihm.ajoutIA())
+            oLeRobot = new Robot("oLeRobot");
         enregistrementNom();
     }
 
@@ -66,6 +63,7 @@ public class ControleurPuissance extends Controleur{
      */
     @Override
     protected void traiterCoup (Joueur joueur)  throws CoupInvalideException {
+
         if(nbRotation.get(joueur)>=0){
             int choix=((IhmPuissance)ihm).choixMouvement(nbRotation.get(joueur));
             if(choix==1/*avec*/){

@@ -1,9 +1,6 @@
 package controleur;
 
-import modele.CoupInvalideException;
-import modele.CoupNim;
-import modele.Joueur;
-import modele.Tas;
+import modele.*;
 import vue.Ihm;
 import vue.IhmNim;
 import java.util.List;
@@ -29,6 +26,8 @@ public class ControleurNim extends Controleur{
     @Override
     protected void initJeu(){
         enregistrerNbTas();
+        if(ihm.ajoutIA())
+            oLeRobot = new Robot("oLeRobot");
         enregistrementNom();
     }
 

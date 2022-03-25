@@ -7,7 +7,8 @@ import java.util.Set;
 public class Grille extends Plateau{
     private final int taille = 7;
     private int nbJeton;
-    private  Jeton[][] grille = new Jeton[taille][taille];
+    private Jeton[][] grille = new Jeton[taille][taille];
+    private Jeton[][] grilleVirtuelle = new Jeton[taille][taille];
     private int[] dernierJeton = new int[2];
 
     public Grille(){ }

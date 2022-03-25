@@ -35,6 +35,31 @@ public abstract class Ihm {
         return nb;
     }
 
+    public static boolean ajoutIA (){
+        scanner = new Scanner(System.in);
+        int nb=0;
+        System.out.println("1 pour jouer à deux joueur");
+        System.out.println("2 pour jouer contre l'IA \"oLeRobot\"");
+        String msg="Votre choix:";
+        System.out.print(msg);
+        while(scanner.hasNextLine()){
+            String ligne = scanner.nextLine();
+            Scanner scLoc = new Scanner(ligne);
+            if(!ligne.contains(" ") && scLoc.hasNextInt()){
+                nb=scLoc.nextInt();
+                if (1==nb || 2==nb) {
+                    System.out.println(spacing);
+                    break;
+                }
+            }
+            System.out.println("Erreur: le numéro doit être 1 ou 2 \n");
+            System.out.print(msg);
+        }
+        if (nb == 1)
+            return false;
+        return true;
+    }
+
     /**
      * Demande le nom du joueur
      * @param num correspond au numéro du joueur (joueur 1 ou 2)
